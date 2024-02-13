@@ -6,7 +6,7 @@ const authRoutes = require('./authRoutes');
 const User = require('./User'); // Import the User model
 const activityRoutes = require('./activityRoutes'); // Importez les routes d'activités
 const cartRoutes = require('./cartRoutes'); // Assurez-vous que le chemin d'accès est correct
-
+const userRoutes = require('./userRoutes'); // Assurez-vous que le chemin d'accès est correct
 
 const app = express();
 
@@ -23,6 +23,7 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology
 app.use('/api/auth', authRoutes);
 app.use('/api/activities', activityRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/user', userRoutes); // Assurez-vous que le chemin d'accès est correct
 
 // Add a route to get all users
 app.get('/api/users', async (req, res) => {

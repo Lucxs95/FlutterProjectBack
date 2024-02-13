@@ -1,10 +1,18 @@
 [
   {
     "email": "test@gmail.com",
-    "password": "test"
+    "password": "test",
+    "birthday": "1990-01-01",
+    "address": "123 Fake Street",
+    "postalCode": "12345",
+    "city": "Faketown"
   },
   {
     "email": "test2@gmail.com",
-    "password": "test"
+    "password": "test",
+    "birthday": "1990-02-01",
+    "address": "456 Fake Avenue",
+    "postalCode": "67890",
+    "city": "Fakecity"
   }
 ]
