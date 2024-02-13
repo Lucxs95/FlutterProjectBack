@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 
 const activitySchema = new mongoose.Schema({
-    id: { type: String, required: true }, // Ajout du champ 'id'
     imageUrl: { type: String, required: true },
     title: { type: String, required: true },
     location: { type: String, required: true },

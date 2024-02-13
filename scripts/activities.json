@@ -1,6 +1,5 @@
 [
   {
-    "id": "activite1",
     "imageUrl": "https://example.com/image1.jpg",
     "title": "Activité 1",
     "category": "Sport",
@@ -9,7 +8,6 @@
     "price": 10
   },
   {
-    "id": "activite2",
     "imageUrl": "https://example.com/image2.jpg",
     "title": "Activité 2",
     "category": "Shopping",

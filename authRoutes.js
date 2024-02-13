@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
 
         // Ensure JWT_SECRET is set in your environment variables
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-        res.status(200).json({ token });
+        res.status(200).json({ token, userId: user._id.toString() });
     } catch (error) {
         console.error('Erreur de connexion :', error);
         res.status(500).json({ message: 'Erreur lors de l\'authentification' });
