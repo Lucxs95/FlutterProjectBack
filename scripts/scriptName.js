@@ -1,6 +1,6 @@
 require('dotenv').config(); // Make sure this line is at the very top
 const mongoose = require('mongoose');
-const User = require('./User'); // Path to your User model
+const User = require('../User'); // Path to your User model
 const usersData = require('./users.json'); // Path to your JSON file
 
 const connectionString = process.env.DB_URI; // This should now correctly reference your DB URI

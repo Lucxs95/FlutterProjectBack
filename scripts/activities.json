@@ -1,0 +1,18 @@
+[
+  {
+    "imageUrl": "https://example.com/image1.jpg",
+    "title": "Activité 1",
+    "category": "Sport",
+    "location": "Lieu 1",
+    "minPeople": 2,
+    "price": 10
+  },
+  {
+    "imageUrl": "https://example.com/image2.jpg",
+    "title": "Activité 2",
+    "category": "Shopping",
+    "location": "Lieu 2",
+    "minPeople": 1,
+    "price": 20
+  }
+]
