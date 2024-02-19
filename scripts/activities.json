@@ -1,18 +1,33 @@
 [
   {
-    "imageUrl": "https://example.com/image1.jpg",
-    "title": "Activité 1",
+    "imageUrl": "https://i.imgur.com/ZD98VUS.png",
+    "title": "Randonnée dans la nature",
     "category": "Sport",
-    "location": "Lieu 1",
+    "location": "Le Jura",
     "minPeople": 2,
     "price": 10
   },
   {
-    "imageUrl": "https://example.com/image2.jpg",
-    "title": "Activité 2",
-    "category": "Shopping",
-    "location": "Lieu 2",
-    "minPeople": 1,
+    "imageUrl": "https://i.imgur.com/Fhnx5KQ.jpg",
+    "title": "Football",
+    "category": "Sport",
+    "location": "Vélodrome",
+    "minPeople": 11,
     "price": 20
-  }
+  },
+  {
+    "imageUrl": "https://i.imgur.com/NvuqYOq.jpg",
+    "title": "Shopping",
+    "category": "Shopping",
+    "location": "Mall",
+    "minPeople": 1,
+    "price": 5
+  },  {
+  "imageUrl": "https://i.imgur.com/fktdOWZ.png",
+  "title": "Voyage a Rome",
+  "category": "Voyage",
+  "location": "Rome",
+  "minPeople": 3,
+  "price": 200
+}
 ]
