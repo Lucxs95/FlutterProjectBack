@@ -58,5 +58,25 @@ router.post('/remove', async (req, res) => {
         res.status(500).json({ message: 'Error removing activity from cart' });
     }
 });
+// Endpoint pour vider le panier d'un utilisateur
+router.post('/clear', async (req, res) => {
+    const { userId } = req.body; // Obtenir l'userId de la requête
+
+    try {
+        const cart = await Cart.findOne({ userId });
+        if (!cart) {
+            return res.status(404).json({ message: 'Cart not found' });
+        }
+
+        // Vider le panier
+        cart.activities = [];
+        await cart.save();
+
+        res.status(200).json({ message: 'Cart cleared', cart });
+    } catch (error) {
+        console.error('Error clearing cart:', error);
+        res.status(500).json({ message: 'Error clearing cart' });
+    }
+});
 
 module.exports = router;
