@@ -20,15 +20,22 @@ router.get('/profile/:userId', async (req, res) => {
 
 router.patch('/updateProfile/:userId', async (req, res) => {
     const { userId } = req.params;
-    const updates = req.body;
+    let updates = req.body;
+
+    // Optionnel : Si vous ne voulez pas que le mot de passe soit mis à jour via cette route,
+    // supprimez-le des données reçues.
+    delete updates.password;
 
     try {
-        const user = await User.findByIdAndUpdate(userId, updates, { new: true, runValidators: true }).select('-password'); // Exclude password from the response
+        const user = await User.findByIdAndUpdate(userId, updates, { new: true, runValidators: true })
+            .select('-password'); // Exclut le mot de passe de la réponse
+
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
         res.json(user);
     } catch (error) {
+        console.error('Error updating user profile:', error);
         res.status(500).json({ message: 'Error updating user profile', error });
     }
 });
