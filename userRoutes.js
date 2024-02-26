@@ -21,11 +21,8 @@ router.patch('/updateProfile/:userId', async (req, res) => {
     const { userId } = req.params;
     let updates = req.body;
 
-    delete updates.password;
-
     try {
-        const user = await User.findByIdAndUpdate(userId, updates, { new: true, runValidators: true })
-            .select('-password');
+        const user = await User.findByIdAndUpdate(userId, updates, { new: true, runValidators: true });
 
         if (!user) {
             return res.status(404).json({ message: 'Utilisateur non trouvé' });
