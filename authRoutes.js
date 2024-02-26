@@ -4,7 +4,6 @@ const User = require('./User');
 
 const router = express.Router();
 
-// Register route
 router.post('/register', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -23,16 +22,14 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Login route
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if (!user || user.password !== password) { // Direct string comparison
+        if (!user || user.password !== password) {
             return res.status(401).json({ message: 'Échec de l\'authentification : utilisateur non trouvé ou mot de passe incorrect.' });
         }
 
-        // Ensure JWT_SECRET is set in your environment variables
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.status(200).json({ token, userId: user._id.toString() });
     } catch (error) {

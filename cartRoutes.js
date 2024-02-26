@@ -1,81 +1,93 @@
-// Supposons que ce code se trouve dans un fichier de routes, par exemple cartRoutes.js
-
 const express = require('express');
 const router = express.Router();
-const Cart = require('./Cart'); // Importez le modèle Cart
-const Activity = require('./Activity'); // Assurez-vous que le chemin d'accès est correct
+const Cart = require('./Cart');
+const Activity = require('./Activity');
 
-// Endpoint pour ajouter une activité au panier
 router.post('/add', async (req, res) => {
-    const { userId, activityId } = req.body; // Obtenir l'userId et l'activityId de la requête
+    const {userId, activityId} = req.body;
 
     try {
-        let cart = await Cart.findOne({ userId });
+        let cart = await Cart.findOne({userId});
         if (!cart) {
-            // Si l'utilisateur n'a pas de panier, en créer un
-            cart = new Cart({ userId, activityId });
+            cart = new Cart({userId, activityId});
         } else {
-            // Sinon, ajouter l'activité au panier existant
             cart.activities.push(activityId);
         }
-        await cart.save(); // Sauvegarder le panier mis à jour
-        res.status(200).json({ message: 'Activity added to cart', cart });
+        await cart.save();
+        res.status(200).json({message: 'Activité ajoutée au panier', cart});
     } catch (error) {
-        console.error('Error adding activity to cart:', error);
-        res.status(500).json({ message: 'Error adding activity to cart' });
+        console.error('Erreur lors de l\'ajout d\'une activité au panier:', error);
+        res.status(500).json({message: 'Erreur lors de l\'ajout d\'une activité au panier'});
     }
 });
 router.get('/:userId', async (req, res) => {
-    const { userId } = req.params; // Obtenir l'userId de la requête
+    const {userId} = req.params;
 
     try {
-        const cart = await Cart.findOne({ userId }).populate('activities');
+        const cart = await Cart.findOne({userId}).populate('activities');
         if (!cart) {
-            return res.status(404).json({ message: 'Cart not found' });
+            return res.status(404).json({message: 'Panier introuvable\n'});
         }
         res.status(200).json(cart.activities);
     } catch (error) {
-        console.error('Error fetching cart:', error);
-        res.status(500).json({ message: 'Error fetching cart' });
+        console.error('Erreur lors de la récupération du panier:', error);
+        res.status(500).json({message: 'Erreur lors de la récupération du panier'});
     }
 });
 router.post('/remove', async (req, res) => {
-    const { userId, activityId } = req.body;
+    const {userId, activityId} = req.body;
 
     try {
-        const cart = await Cart.findOne({ userId });
+        const cart = await Cart.findOne({userId});
         if (!cart) {
-            return res.status(404).json({ message: 'Cart not found' });
+            return res.status(404).json({message: 'Panier introuvable'});
         }
 
-        // Retirer l'activité du panier
         cart.activities = cart.activities.filter(id => id.toString() !== activityId);
         await cart.save();
 
-        res.status(200).json({ message: 'Activity removed from cart', cart });
+        res.status(200).json({message: 'Activité supprimée du panier', cart});
     } catch (error) {
-        console.error('Error removing activity from cart:', error);
-        res.status(500).json({ message: 'Error removing activity from cart' });
+        console.error('Erreur lors de la suppression de l\'activité du panier:', error);
+        res.status(500).json({message: 'Erreur lors de la suppression de l\'activité du panier'});
     }
 });
-// Endpoint pour vider le panier d'un utilisateur
-router.post('/clear', async (req, res) => {
-    const { userId } = req.body; // Obtenir l'userId de la requête
+
+router.post('/removeAll', async (req, res) => {
+    const {userId} = req.body;
 
     try {
-        const cart = await Cart.findOne({ userId });
+        const cart = await Cart.findOne({userId});
         if (!cart) {
-            return res.status(404).json({ message: 'Cart not found' });
+            return res.status(404).json({message: 'Panier introuvable'});
         }
 
-        // Vider le panier
         cart.activities = [];
         await cart.save();
 
-        res.status(200).json({ message: 'Cart cleared', cart });
+        res.status(200).json({message: 'Toutes les activités supprimées du panier', cart});
     } catch (error) {
-        console.error('Error clearing cart:', error);
-        res.status(500).json({ message: 'Error clearing cart' });
+        console.error('Erreur lors de la suppression de toutes les activités du panier:', error);
+        res.status(500).json({message: 'Erreur lors de la suppression de toutes les activités du panier'});
+    }
+});
+
+router.post('/clear', async (req, res) => {
+    const {userId} = req.body;
+
+    try {
+        const cart = await Cart.findOne({userId});
+        if (!cart) {
+            return res.status(404).json({message: 'Panier introuvable'});
+        }
+
+        cart.activities = [];
+        await cart.save();
+
+        res.status(200).json({message: 'Panier vidé', cart});
+    } catch (error) {
+        console.error('Erreur lors de la suppression du panier:', error);
+        res.status(500).json({message: 'Erreur lors de la suppression du panier'});
     }
 });
 

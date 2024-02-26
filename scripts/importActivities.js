@@ -1,16 +1,14 @@
-require('dotenv').config(); // Assurez-vous que cette ligne est tout en haut
+require('dotenv').config();
 const mongoose = require('mongoose');
-const Activity = require('../Activity'); // Chemin vers votre modèle d'activité
-const activitiesData = require('./activities.json'); // Chemin vers votre fichier JSON
+const Activity = require('../Activity');
+const activitiesData = require('./activities.json');
 
-const connectionString = process.env.DB_URI; // Utilisez correctement votre URI de DB
+const connectionString = process.env.DB_URI;
 
 async function importActivities() {
     try {
         await mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
-        console.log('MongoDB connected');
-
-        // Optionnel : Effacer toutes les activités existantes pour éviter les doublons
+        console.log('MongoDB connecté');
         await Activity.deleteMany({});
 
         for (const activityData of activitiesData) {
@@ -18,10 +16,10 @@ async function importActivities() {
             await activity.save();
         }
 
-        console.log('All activities imported successfully');
+        console.log('Toutes les activités importées avec succès');
         process.exit(0);
     } catch (error) {
-        console.error('Error importing activities:', error);
+        console.error('Erreur lors de l\'importation des activités :', error);
         process.exit(1);
     }
 }
